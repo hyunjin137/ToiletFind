@@ -14,8 +14,11 @@ function initMap() {
     // 마커와 코멘트 데이터 로드
     loadMarkers();
 
-    // 지도 클릭 이벤트 처리
+    // 지도 클릭 및 터치 이벤트 처리
     map.on('click', function(event) {
+        createMarker(event.latlng);
+    });
+    map.on('touchstart', function(event) {
         createMarker(event.latlng);
     });
 
