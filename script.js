@@ -42,6 +42,12 @@ function createMarker(latlng) {
     `;
     document.body.appendChild(commentBox);
 
+    // 코멘트가 변경될 때마다 로컬 스토리지에 저장
+    const textarea = commentBox.querySelector('textarea');
+    textarea.addEventListener('input', function() {
+        saveMarkers();
+    });
+
     // 마커 클릭 시 해당 마커에 연결된 코멘트 창만 보이도록 처리
     marker.on('click', function() {
         markers.forEach(markerObj => {
@@ -56,7 +62,7 @@ function createMarker(latlng) {
     // 마커와 코멘트 창을 연결
     markers.push({ latlng, marker, commentBox });
 
-    // 로컬 스토리지에 마커 저장
+    // 로컬 스토리지에 마커와 코멘트 정보 저장
     saveMarkers();
 }
 
@@ -123,6 +129,12 @@ function loadMarkers() {
             <span class="close-btn" onclick="removeMarker(${latlng.lat}, ${latlng.lng})">X</span>
         `;
         document.body.appendChild(commentBox);
+
+        // 코멘트가 변경될 때마다 로컬 스토리지에 저장
+        const textarea = commentBox.querySelector('textarea');
+        textarea.addEventListener('input', function() {
+            saveMarkers();
+        });
 
         // 마커 클릭 시 해당 마커의 코멘트 창만 보이도록 처리
         marker.on('click', function() {
